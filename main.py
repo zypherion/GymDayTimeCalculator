@@ -10,28 +10,28 @@ dColor = '\033[m'
 #Print the welcome banner:
 print(green)
 print("/-------------------------------------\\")
-print("|Tim's Wonderful Time Card Calculator!|")
+print("|Tim's Wonderful Gym Day Calculator!|")
 print("\\-------------------------------------/")
 print(dColor)
 
 #Query user for decimal formatted hours worked:
-fridayCheck = input("Is it Friday (y/n)?:")
+fridayCheck = input("Did you already clock in (y/n)?:")
 while fridayCheck != "y":
-    print("This tool only works on Fridays, work some more and then come back.")
-    fridayCheck = input("Is it Friday (y/n)?:")
+    print("This tool only works after you've clocked in, go clock in and keep the window open.")
+    fridayCheck = input("Did you clock in (y/n)?:")
 
-arrivalTime = input("Phew.. What time did you arrive today? (ex: 9:00, AM is assumed): ")
-timeWorked = float(input("How many hours have you already worked in ADP? (ex: 34.67): "))
+arrivalTime = input("Phew.. What time did you clock-in? (ex: 09:00): ")
+timeWorked = float(input("How many hours have you already worked in ADP? (ex: 4.67): "))
 
 #Verify that it's a calculation we can actually work with:
-while timeWorked < 24 or timeWorked > 40:
+#while timeWorked < 24 or timeWorked > 40:
     #clear screen:
-    print(chr(27)+'[2j')
-    print('\033c')
-    print('\x1bc')
+#    print(chr(27)+'[2j')
+#    print('\033c')
+#    print('\x1bc')
 
-    print("Sorry, I can't help you.. You've worked too much already this week... or too little.")
-    timeWorked = float(input("How many hours have you already worked in ADP? (ex: 34.67): "))
+#    print("Sorry, I can't help you.. You've worked too much already this week... or too little.")
+#    timeWorked = float(input("How many hours have you already worked in ADP? (ex: 34.67): "))
 
 #Once we can work with it:
 #split and then store arrival time using datetime module:
@@ -53,7 +53,7 @@ minutesWorked = math.ceil(minutesWorked * 60)
 
 #Convert total time worked into minutes, then subtract from full 40hr week:
 timeWorked = timeWorked * 60 
-timeLeft = 2400 - timeWorked
+timeLeft = 480 - timeWorked
 
 #Split timeLeft into minutes/hours left and QC the minutes:
 minutesLeft, hoursLeft = math.modf((timeLeft / 60))
@@ -69,6 +69,6 @@ leaveTime = arrivalTime + datetime.timedelta(hours=hoursLeft,minutes=minutesLeft
 lTime = leaveTime.strftime("%I:%M %P")
 
 #Give the user the computed results:
-print ("You've worked %s%d hours and %d%s minutes so far this week."% (green, hoursWorked, minutesWorked, dColor))
-print ("You still need to work %s%d hours and %d%s minutes to reach 40hrs." % (red, hoursLeft, minutesLeft, dColor))
+print ("You've worked %s%d hours and %d%s minutes so far today."% (green, hoursWorked, minutesWorked, dColor))
+print ("You still need to work %s%d hours and %d%s minutes to reach 8hrs." % (red, hoursLeft, minutesLeft, dColor))
 print ("You can leave at: %s%s%s" % (green,lTime,dColor))
